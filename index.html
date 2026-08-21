@@ -2,312 +2,339 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<title>Quiz — Pragmatica e Linguistica Testuale</title>
+<title>Pragmatica e Linguistica Testuale — quiz di ripasso</title>
 <style>
   :root{
-    --ink:#1c1c1a;
-    --paper:#eeece6;
-    --rule:#1c1c1a;
-    --wrong:#7a2e2e;
-    --right:#2e4d2e;
-    --muted:#6b6a63;
+    --bg:#f7f4ee;
+    --ink:#1c1b19;
+    --muted:#8a8578;
+    --rule:#1c1b19;
+    --card-border:#ddd8cb;
+    --card-border-hover:#c9c3b3;
+    --right:#3f6b3f;
+    --wrong:#a13f3f;
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
-    background:var(--paper);
+    background:var(--bg);
     color:var(--ink);
-    font-family:"Courier New", ui-monospace, monospace;
+    font-family:Georgia, 'Times New Roman', serif;
+    padding:56px 24px 80px;
     display:flex;
     justify-content:center;
-    padding:40px 16px;
   }
   .sheet{
     width:100%;
-    max-width:640px;
+    max-width:620px;
   }
-  .head{
-    border-bottom:2px solid var(--rule);
-    padding-bottom:10px;
-    margin-bottom:28px;
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-  }
-  .head h1{
-    font-size:15px;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-    margin:0;
-    font-weight:700;
-  }
-  .head .count{
-    font-size:13px;
-    color:var(--muted);
-  }
-  .lezione{
-    font-size:11px;
+  .eyebrow{
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size:12px;
     letter-spacing:.08em;
     text-transform:uppercase;
     color:var(--muted);
-    margin-bottom:6px;
+    margin-bottom:10px;
+  }
+  h1{
+    font-size:32px;
+    font-weight:400;
+    margin:0 0 20px 0;
+    line-height:1.15;
+  }
+  .progress{
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:24px;
+    line-height:1.6;
+  }
+  hr{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:0 0 32px 0;
+  }
+  .meta{
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:8px;
   }
   .domanda{
-    font-size:18px;
-    line-height:1.45;
-    margin:0 0 22px 0;
+    font-size:24px;
+    font-weight:400;
+    line-height:1.35;
+    margin:0 0 28px 0;
   }
-  .opzioni{list-style:none;margin:0;padding:0;}
+  .opzioni{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
   .opzione{
+    border:1px solid var(--card-border);
+    border-radius:10px;
+    padding:18px 20px;
     display:flex;
     align-items:flex-start;
-    gap:12px;
-    padding:11px 4px;
+    gap:14px;
     cursor:pointer;
-    border-bottom:1px solid #d8d6cd;
-    font-size:15px;
+    font-size:18px;
     line-height:1.4;
+    background:transparent;
+    transition:border-color .1s ease;
   }
-  .opzione:hover{background:#e4e1d8;}
-  .box{
-    flex:0 0 16px;
-    width:16px;height:16px;
+  .opzione:hover{border-color:var(--card-border-hover);}
+  .opzione .box{
+    flex:0 0 18px;
+    width:18px;height:18px;
     border:1.5px solid var(--ink);
-    margin-top:2px;
+    border-radius:3px;
+    margin-top:3px;
   }
-  .opzione.corretta .box{background:var(--right);border-color:var(--right);}
-  .opzione.sbagliata .box{background:var(--wrong);border-color:var(--wrong);}
   .opzione.locked{cursor:default;}
-  .opzione.locked:hover{background:none;}
+  .opzione.locked:hover{border-color:var(--card-border);}
+  .opzione.corretta{border-color:var(--right);}
+  .opzione.corretta .box{background:var(--right);border-color:var(--right);}
+  .opzione.sbagliata{border-color:var(--wrong);}
+  .opzione.sbagliata .box{background:var(--wrong);border-color:var(--wrong);}
   .esito{
-    margin-top:18px;
+    margin-top:22px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size:13px;
-    font-weight:700;
     letter-spacing:.03em;
     text-transform:uppercase;
   }
   .esito.right{color:var(--right);}
   .esito.wrong{color:var(--wrong);}
   .azioni{
-    margin-top:26px;
-    display:flex;
-    justify-content:flex-end;
+    margin-top:28px;
   }
   button.avanti{
-    font-family:inherit;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size:13px;
     letter-spacing:.04em;
     text-transform:uppercase;
     background:var(--ink);
-    color:var(--paper);
+    color:var(--bg);
     border:none;
-    padding:10px 22px;
+    border-radius:8px;
+    padding:12px 24px;
     cursor:pointer;
   }
   button.avanti:hover{opacity:.85;}
-  .fine{
-    text-align:center;
-    padding-top:40px;
-  }
   .fine .num{
-    font-size:48px;
-    font-weight:700;
+    font-size:56px;
     line-height:1;
+    margin-bottom:12px;
   }
-  .fine p{color:var(--muted);font-size:13px;letter-spacing:.03em;text-transform:uppercase;margin-top:14px;}
+  .fine p{
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size:13px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
   button.reset{
-    margin-top:30px;
-    font-family:inherit;
-    background:none;
+    margin-top:24px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    background:transparent;
     border:1.5px solid var(--ink);
+    border-radius:8px;
     color:var(--ink);
-    padding:9px 20px;
+    padding:10px 22px;
     font-size:13px;
     letter-spacing:.03em;
     text-transform:uppercase;
     cursor:pointer;
   }
-  button.reset:hover{background:var(--ink);color:var(--paper);}
+  button.reset:hover{background:var(--ink);color:var(--bg);}
 </style>
 </head>
 <body>
 <div class="sheet">
-  <div class="head">
-    <h1>Pragmatica e Linguistica Testuale</h1>
-    <span class="count" id="count"></span>
-  </div>
+  <div class="eyebrow">Paniere · Pragmatica e Linguistica Testuale</div>
+  <h1>Quiz di ripasso</h1>
+  <div class="progress" id="progress"></div>
+  <hr>
   <div id="app"></div>
 </div>
 
 <script>
 const DATA = [
-["L002","Per i generativisti",["la forma dipende dalla funzione","la forma è indipendente dalla funzione","nessuna di queste risposte","la funzione dipende dalla forma"],1],
-["L002","Per i funzionalisti, il linguaggio",["dipende dal lessico usato","dipende dalla struttura profonda","è forgiato in relazione allo scopo","serve a esprimere il pensiero"],2],
-["L003","La linguistica",["si colloca a metà strada fra le scienze molli e le scienze dure","è una scienza dura","nessuna di queste risposte","è una scienza molle"],0],
-["L003","I segni sono",["motivati analogicamente e intenzionali","non motivati, arbitrari e intenzionali","motivati naturalmente e intenzionali","motivati naturalmente e non intenzionali"],2],
-["L003","Gli indici sono",["motivati naturalmente e non intenzionali","motivati naturalmente e intenzionali","non motivati, arbitrari e intenzionali","motivati analogicamente e intenzionali"],0],
-["L003","I simboli sono",["non motivati, arbitrari e intenzionali","motivati analogicamente e intenzionali","motivati naturalmente e non intenzionali","motivati naturalmente e intenzionali"],0],
-["L003","Le icone sono",["motivati naturalmente e non intenzionali","motivate analogicamente e intenzionali","motivati analogicamente e non intenzionali","motivati naturalmente e intenzionali"],1],
-["L003","Eccezioni all'arbitrarietà",["congiunzioni e preposizioni","congiunzioni ed esclamazioni","esclamazioni e congiunzioni","onomatopee ed esclamazioni"],3],
-["L003","Chi ha introdotto la distinzione langue/parole?",["Labov","Chomsky","Saussure","Grice"],2],
-["L003","Peirce ha definito il segno linguistico",["come una diade: referente, significante","come una diade: referente, significato","come una diade: significante, significato","come una triade: referente, significante, significato"],3],
-["L003","La linguistica",["è descrittiva","è narrativa","è normativa","è prescrittiva"],0],
-["L004","Il linguaggio verbale è",["posizionale ma non articolato","articolato e posizionale","né articolato né posizionale","articolato ma non posizionale"],1],
-["L004","Il concetto di competenza linguistica è stato introdotto da",["Dell Hymes","Grice","Chomsky","Austin"],2],
-["L004","Chi ha formulato la distinzione sistema/uso?",["Chomsky","Labov","Saussure","Hjelmslev"],3],
-["L004","Quale coppia NON rientra fra le dicotomie saussuriane?",["sintagmatico / paradigmatico","langue / parole","competence / performance","significante / significato"],2],
-["L004","L'unità minima della fonetica è il",["sintagma","fono","suono","fonema"],1],
-["L005","La capacità di produrre suoni linguistici è detta",["Fonetica","Articolazione","Fonologia","Fonazione"],3],
-["L005","La sintassi si interessa",["al rapporto fra segni e referenti","al rapporto fra segni e chi li usa","al rapporto fra i segni","nessuna delle risposte"],2],
-["L006","Acqua/idrico è un esempio di",["suppletivismo","omonimia","allomorfia","metonimia"],0],
-["L006","Il procedimento che permette di identificare i morfemi si chiama",["morfosintassi","segmentazione","morfematica","morfologia"],1],
-["L006","Dal punto di vista funzionale, quante classi di morfemi esistono?",["tre","soltanto una","due","quattro"],2],
-["L006","Gli allomorfi sono",["morfemi dal significato diverso","morfemi grammaticali","morfemi lessicali","due o più morfi con lo stesso significato"],3],
-["L006","La più piccola unità linguistica dotata di significato si chiama",["fono","lessema","morfema","fonema"],2],
-["L006","I morfemi grammaticali",["costituiscono una classe chiusa","sono costituiti da un solo morfo","costituiscono una classe aperta","esprimono un significato lessicale"],0],
-["L006","I morfi liberi",["non possono costituire parola","sono allomorfi","possono ricorrere da soli","sono in variazione libera"],2],
-["L006","Una parola si scompone in",["morfomi","morfi","morfemi","lessemi"],1],
-["L006","I morfi che si inseriscono nella radice si chiamano",["affissi","prefissi","infissi","suffissi"],2],
-["L007","La prova di commutazione si usa in",["tutt'e tre","semantica","fonologia","morfologia"],3],
-["L007","La struttura sintattica di un enunciato è",["gerarchica","circolare","subordinata","lineare"],0],
-["L007","La minima combinazione di parole che funziona come un'unità sintattica è",["il morfema","la frase","il sintagma","il verbo"],2],
-["L008","Quale dei seguenti verbi è monovalente?",["regalare","dormire","vendere","grandinare"],1],
-["L008","Quale dei seguenti verbi è trivalente?",["correre","regalare","nevicare","tradurre"],1],
-["L008","La pragmatica di tipo anglo-americano",["è di stampo cognitivo-filosofico","considera l'intenzione come un costrutto post-factum","mette in dubbio la centralità dell'intenzione","è di stampo socioculturale-interazionale"],0],
-["L008","Nella grammatica tradizionale, i complementi sono definiti su base",["semantica","sintattica","analogica","morfologica"],0],
-["L008","La grammatica valenziale è stata elaborata da",["Tesnière","Hjelmslev","Saussure","Chomsky"],0],
-["L009","La componente della lingua più esposta all'influenza di altre lingue è",["il lessico","la morfologia","il sistema fonetico","la sintassi"],0],
-["L009","Volante e macchina si trovano in rapporto di",["sinonimia","iponimia","omonimia","meronimia"],3],
-["L009","L'estensione di una parola riguarda",["la capacità di essere impiegata in situazioni diverse","situazioni di omonimia","l'insieme di tratti semantici connessi","tutti i membri a cui mi posso riferire"],3],
-["L009","Il significato convenzionale è oggetto di studio della",["semantica","sociolinguistica","morfosintassi","pragmatica"],0],
-["L009","Le reti di parole sono parole che intrattengono fra di loro relazioni",["sintattiche","gerarchiche","sintagmatiche","paradigmatiche"],3],
-["L009","L'unità minima della semantica è il",["seme","lemma","lessema","morfo"],2],
-["L010","Nella sua teoria dei segni, Morris paragona",["semantica, sintassi, pragmatica","semantica, lessico, pragmatica","morfologia, sintassi, pragmatica","fonetica, morfologia, sintassi"],0],
-["L010","La pragmatica si occupa della relazione fra i segni e",["il discorso","il testo","la conversazione","chi li usa"],3],
-["L010","La pragmatica si occupa",["del rapporto fra lingua e contesto","della competenza comunicativa dei parlanti","del rapporto fra utenti","del rapporto fra lingua e società"],0],
-["L010","La pragmatica eredita il modello di studio",["della sociolinguistica","della retorica classica","dell'analisi conversazionale","dello strutturalismo"],1],
-["L010","Chi definì per primo la pragmatica?",["Grice","Morris","Chomsky","Austin"],1],
-["L011","La pragmatica linguistica è stata fondata e sviluppata soprattutto da",["filosofi","sociologi","psicologi","sociolinguisti"],0],
-["L011","Nella tradizione continentale, la pragmatica",["fa parte del nucleo della teoria linguistica","non fa parte del nucleo della teoria linguistica","è collegata alla sintassi","non è collegata a ciascuno dei livelli di analisi"],1],
-["L011","Il manuale di pragmatica di S. Levinson è del",["1983","1975","1963","1950"],0],
-["L011","Austin è legato alla scuola di",["Oxford","Praga","Harvard","Londra"],0],
-["L011","Secondo quale tradizione, la pragmatica NON fa parte del nucleo della teoria linguistica?",["secondo la scuola americana","secondo la scuola di Oxford","secondo la scuola continentale europea","secondo la scuola sovietica"],2],
-["L011","Le variabili sociali sono essenziali per",["la sociolinguistica","la pragmatica","nessuna delle risposte","la sociolinguistica e la pragmatica"],3],
-["L012","In Italia la sociolinguistica si è affermata grazie a",["De Mauro","Folena","Berruto","Cardona"],3],
-["L012","Il fondatore della sociolinguistica è stato",["Austin","Chomsky","Grice","Labov"],3],
-["L012","La sociolinguistica si afferma",["negli anni 60","negli anni 30","negli anni 80","negli anni 40"],0],
-["L012","La sociolinguistica nasce",["in Italia","a Oxford","negli Stati Uniti","a Cambridge"],2],
-["L012","La sociolinguistica si afferma",["negli anni 60","negli anni 70","negli anni 30","negli anni 80"],0],
-["L013","L'espressione \"competenza comunicativa\" fu coniata da",["Morris","Dell Hymes","Grice","Chomsky"],1],
-["L013","Il significato scaturisce",["solo dalle parole","solo dall'uso delle parole negli enunciati","non solo dalle parole, ma anche dal loro uso negli enunciati","nessuna delle risposte"],2],
-["L013","Il contesto pertinente per l'interpretazione e la produzione degli enunciati coincide con",["il contesto linguistico","tutt'e tre le risposte","la situazione comunicativa contingente","le conoscenze condivise"],1],
-["L013","Come possiamo 'decifrare' (interpretare) gli atti linguistici?",["grazie al co-testo","grazie alle conoscenze condivise","grazie al contesto, al co-testo e alle conoscenze condivise","grazie al contesto"],2],
-["L013","Per comprendere un testo, il contesto",["è importante soltanto per i testi scritti","non è importante","è essenziale","è importante soltanto per i testi orali"],2],
-["L014","Per l'etnometodologia, la realtà sociale",["non è fondamentale","è un dato preesistente","è l'unica realtà che conta","non è un dato preesistente"],3],
-["L014","Nel paradigma formale, la funzione primaria di una lingua è",["la comunicazione","l'agire linguistico","l'espressione del pensiero","la descrizione degli oggetti"],2],
-["L014","Il termine 'etnometodologia' fu coniato da",["Garfinkel","Austin","Dell Hymes","Chomsky"],0],
-["L014","L'etnometodologia è una corrente della",["pragmatica","scuola di Oxford","micro-sociologia","grammatica generativa"],2],
-["L016","Qual è la cornice che si attiva in: \"Ieri sono andata a visitare la mostra di Frida Kahlo; per fortuna non c'era coda alla biglietteria ma i depliant erano finiti\"",["artista","tentativo","deissi","museo"],3],
-["L016","Il concetto di \"frame\" è stato proposto da",["Morris","Grice","Goffman","Minsky"],3],
-["L016","Un dialogo tipico fra cameriere e cliente è",["un evento performativo","una cornice","un campo indicale","un copione"],3],
-["L017","Il primo a formulare una teoria degli atti linguistici fu",["Morris","Searle","Austin","Grice"],2],
-["L018","\"Promettere\" è un verbo",["assertivo","constativo","imperativo","performativo"],3],
-["L018","\"Valutare\" è un verbo",["verdettivo","commissivo","comportativo","esercitivo"],0],
-["L018","La retorica tratta",["la locuzione e la perlocuzione","la locuzione e l'illocuzione","nessuna di queste risposte","l'illocuzione e la perlocuzione"],3],
-["L018","La dimensione perlocutoria riguarda",["le intenzioni del parlante","il semplice atto del dire qualcosa","gli effetti del dire","nessuna di queste risposte"],2],
-["L018","La dimensione illocutoria riguarda",["gli effetti del dire","il semplice atto del dire qualcosa","nessuna di queste risposte","le intenzioni del parlante"],3],
-["L018","La dimensione locutoria corrisponde a",["nessuna di queste risposte","gli effetti del dire","l'interpretazione","le intenzioni del parlante"],0],
-["L021","\"È bella ma intelligente\" è un esempio di",["implicatura conversazionale","presupposizione","implicatura convenzionale","paradosso"],2],
-["L021","Il principio di cooperazione è cruciale per",["le implicature","la cortesia","le presupposizioni","tutt'e tre le risposte"],0],
-["L021","Il principio di cooperazione è stato formulato da",["Austin","Searle","Chomsky","Grice"],3],
-["L021","\"Sii pertinente\" corrisponde alla massima di",["quantità","modo","relazione","qualità"],2],
-["L021","Violare le massime conversazionali di Grice è",["infrequente","frequente","anomalo","scorretto"],1],
-["L021","Dalle massime scaturiscono delle inferenze, che Grice chiama",["implicature convenzionali","nessuna di queste risposte","implicature conversazionali","presupposizioni"],2],
-["L021","L'ipercooperazione si può verificare",["nel caso della presupposizione","nel caso dell'implicatura convenzionale","nel caso dell'implicatura conversazionale","in tutt'e tre i casi"],2],
-["L021","Il principio di cooperazione è importante per",["la dimensione perlocutoria","la dimensione locutoria","le presupposizioni","le implicature"],0],
-["L022","L'implicatura conversazionale è",["determinata","cancellabile","convenzionale","staccabile"],1],
-["L022","Sono cancellabili",["le implicature convenzionali","le anafore testuali","le presupposizioni","le implicature conversazionali"],3],
-["L022","\"Potrei sbagliarmi, ma credo che sia lui il capo\" è un esempio di",["frame","script","hedging","flouting"],2],
-["L022","La ritrattabilità è un concetto derivato",["dall'analisi conversazionale","dall'etnometodologia","da Austin","da Grice"],3],
-["L022","La mitigazione",["è uno strumento di negoziazione conversazionale","è una delle massime di Grice","è un procedimento sintattico","rientra fra i dispositivi di cortesia"],0],
-["L023","Il test per riconoscere una presupposizione è",["la negazione","una domanda correlata","l'anafora","l'implicatura conversazionale"],0],
-["L023","Nel caso della presupposizione il senso implicito si trova",["nelle inferenze","nel co-testo","nel contesto extralinguistico","sul dizionario"],1],
-["L023","Viene innescata da un elemento linguistico",["l'inferenza","l'intenzionalità operativa","l'implicatura conversazionale","la presupposizione"],3],
-["L024","Il principio di rilevanza è stato formulato da",["Austin","Levinson","Grice","Sperber e Wilson"],3],
-["L024","Il principio di pertinenza è un principio di tipo",["strutturalista","sintattico","cognitivo","generativo"],2],
-["L024","Il principio di pertinenza di Sperber e Wilson",["smentisce l'approccio di Grice","approfondisce l'approccio di Grice in chiave sociolinguistica","approfondisce l'approccio di Grice in direzione cognitiva","è completamente indipendente dall'approccio di Grice"],2],
-["L024","Il principio di pertinenza",["dipende dalla cultura del parlante","riflette una tendenza innata","dipende dalla sincerità degli interlocutori","si apprende in età prescolare"],1],
-["L025","Il livello più alto di analisi della linguistica testuale è",["la frase","il testo","il paragrafo","il discorso"],1],
-["L025","La linguistica testuale è nata per superare le inadeguatezze",["dello strutturalismo","della pragmatica linguistica","della linguistica frasale","della sociolinguistica"],2],
-["L025","Il contesto è",["invariabile ma negoziabile","invariabile e non negoziabile","variabile e negoziabile","variabile e non negoziabile"],2],
-["L025","Per produrre la coerenza di un testo, la coesione e la connessità",["sono sufficienti ma non necessarie","sono necessarie ma non sufficienti","non sono né sufficienti né necessarie","sono sufficienti e necessarie"],2],
-["L025","Quale dei due è un oggetto dinamico?",["sia il testo che il discorso","né il testo né il discorso","il discorso","il testo"],0],
-["L026","Quale di queste caratteristiche rientra fra i principi regolativi di un testo?",["l'accettabilità","la coesione","l'efficacia","l'intenzionalità"],2],
-["L026","Sono principi costitutivi di un testo",["l'efficienza, l'efficacia e l'appropriatezza","la situazionalità, l'intertestualità e l'appropriatezza","la coesione, la coerenza e l'efficacia","l'intenzionalità, l'accettabilità, l'informatività"],3],
-["L028","\"La nave affondò nella notte. Quel disastro fu uno dei più gravi della storia della navigazione\". \"Quel disastro\" è un",["elemento deittico","elemento anaforico","pronome dimostrativo","incapsulatore anaforico"],3],
-["L029","\"Codesto\" è",["un avverbio dimostrativo","un pronome relativo","un aggettivo relativo","un deittico"],3],
-["L029","La deissi riguarda il modo in cui le lingue codificano",["i tratti del contesto di enunciazione e dell'evento comunicativo","il co-testo linguistico","gli atti linguistici indiretti","l'anafora e la catafora"],0],
-["L029","Un esempio di verbo deittico è",["non esistono verbi deittici","promettere","venire","correre"],2],
-["L029","L'origo è",["una teoria pragmatica","il centro del campo indicale","l'origine della teoria di Bühler","un avverbio deittico"],1],
-["L030","Quale di questi avverbi è deittico?",["nessuna delle risposte","sempre","spesso","ovunque"],0],
-["L030","Per la deissi spaziale, l'origo coincide con",["la posizione occupata dall'ascoltatore","il mittente del messaggio","la posizione occupata dal parlante","nessuna di queste risposte"],2],
-["L030","I pronomi \"io e tu\"",["non sono mai deittici","sono sempre deittici","sono a volte deittici","sono anaforici"],1],
-["L030","I dimostrativi possono codificare",["tutt'e tre le risposte","la visibilità","la prossimità all'interlocutore","la distanza"],0],
-["L030","\"Costassù\" è un",["relativo","deittico","anaforico","connettivo"],1],
-["L030","Sono deittici",["soltanto gli aggettivi dimostrativi","soltanto gli avverbi dimostrativi","soltanto i pronomi dimostrativi","tutt'e tre le risposte"],3],
-["L031","I dimostrativi sono spesso diacronicamente collegati",["all'articolo indeterminativo","alle congiunzioni avversative","all'articolo determinativo","al pronome interrogativo"],2],
-["L031","Nell'italiano medievale, l'allocutivo cortese era",["voi","tu","Lei","la cortesia non veniva codificata linguisticamente"],0],
-["L031","I pronomi \"lui e lei\"",["sono sempre deittici","sono a volte deittici","non sono mai anaforici","non sono mai deittici"],1],
-["L031","\"Oggi il bar è aperto la mattina\". \"Oggi\" è un elemento",["cataforico","illocutorio","anaforico","deittico"],3],
-["L031","L'allocuzione è",["la cortesia linguistica","lo scambio comunicativo tipico","nessuna delle risposte","il riferimento linguistico del parlante al suo interlocutore"],3],
-["L031","\"Qui comincia l'avventura del signor Bonaventura\": \"Qui\" è un",["deittico personale","deittico spaziale","deittico testuale","deittico temporale"],2],
-["L032","Gli aggettivi dimostrativi",["sono sempre anaforici","nessuna di queste risposte","possono essere sia deittici, sia anaforici","sono sempre deittici"],2],
-["L032","I pronomi dimostrativi possono essere",["soltanto esoforici","sia deittici che anaforici","soltanto deittici","soltanto anaforici"],1],
-["L032","\"Te lo dico per l'ultima volta: no!\". \"Lo\" è un",["elemento anaforico","elemento deittico","incapsulatore anaforico","elemento cataforico"],3],
-["L032","Per riferirsi agli elementi testuali presenti nell'universo del discorso, si usa",["nessuna delle risposte","sia mezzi anaforici, sia mezzi deittici","solo mezzi anaforici","solo mezzi deittici"],1],
-["L035","La diamesia riguarda",["la stratificazione sociale","le differenti situazioni comunicative","la provenienza geografica dei parlanti","il canale comunicativo"],3],
-["L035","La diafasia riguarda",["la provenienza geografica dei parlanti","le differenti situazioni comunicative","il canale comunicativo","la stratificazione sociale"],1],
-["L036","Quante lingue minoritarie riconosce il Consiglio d'Europa?",["24","114","84","44"],2],
-["L036","La differenza fra lingua e dialetto è soprattutto di natura",["linguistica","fonetica","sociale","fonologica"],2],
-["L037","Il repertorio linguistico della Sardegna è un caso di",["plurilinguismo","bilinguismo","dilalia","diglossia"],1],
-["L037","La dilalia riguarda",["un cambiamento di registro","una distinzione funzionale molto rigida fra due sistemi linguistici","una distinzione funzionale poco rigida fra due sistemi linguistici","le differenti situazioni comunicative"],2],
-["L037","Nel caso della diglossia",["una lingua è usata soltanto nel parlato formale, l'altra nel parlato informale","una delle lingue è legata a flussi migratori recenti","le lingue sono strutturalmente vicine","entrambe le lingue possono essere usate in tutte le situazioni"],0],
-["L037","A Roma e in Toscana si può parlare di",["bidialettismo","diacrolettia","diglossia","dilalia"],0],
-["L038","Il code-mixing riguarda",["il passaggio da una varietà all'altra nella lingua scritta","il passaggio da una varietà all'altra in tutte le situazioni","il passaggio da una varietà all'altra nel corso di due battute successive","il passaggio da una varietà all'altra nella stessa battuta"],3],
-["L038","Il tag-switching fa riferimento",["all'uso non integrato di voci straniere","alla commutazione interfrasale","agli ibridismi","alla commutazione intrafrasale"],0],
-["L038","Il code-switching è",["un cambiamento di canale","un cambiamento di varietà","un cambiamento di registro","un messaggio codificato"],1],
-["L039","Per \"heritage language\" si intende",["la lingua degli emigrati","la lingua recuperata dagli immigrati di seconda generazione","una lingua estinta","la lingua degli immigrati"],1],
-["L039","Sono sistemi semplificati",["le lingue miste","le lingue creole","le lingue minoritarie","i pidgin"],3],
-["L040","La Dichiarazione universale sui diritti linguistici risale al",["1989","1996","1969","2019"],1],
-["L040","In Italia, la linguistica femminista divenne importante grazie a",["Tullio De Mauro","Alma Sabatini","Francesco Sabatini","Luca Serianni"],1],
-["L041","La cortesia linguistica",["l'atteggiamento psicologico nei confronti dell'interlocutore","riguarda gli allocutivi","riguarda soltanto la deissi sociale","riguarda anche mezzi non linguisticamente codificati"],3],
-["L041","La logica della cortesia di R. Lakoff è ispirata",["non ha nessun precedente nella letteratura","al modello di Sperber e Wilson","alle massime di Grice","all'etnometodologia"],2],
-["L042","Nel costruire la loro teoria, Brown e Levinson partono dai concetti sviluppati da",["Goffman","Austin","Lakoff","Grice"],0],
-["L042","Una delle principali critiche alla teoria di Brown e Levinson riguarda",["la sua presunta universalità","la distinzione tra faccia positiva e faccia negativa","la validità del concetto di Face Threatening Acts","le super-massime (o super-strategie)"],0],
-["L042","\"Può ripetere per favore?\" è un esempio di",["implicatura conversazionale","strategia di cortesia positiva","strategia di cortesia negativa","verbo direttivo"],2],
-["L042","Per Goffman, la 'faccia' è",["l'espressione della cortesia linguistica","l'immagine pubblica che un partecipante desidera proiettare","l'aspetto superficiale dell'interazione","la logica evidente della conversazione"],1],
-["L042","Il concetto di \"faccia\" è stato introdotto da",["Grice","Goffman","Sperber e Wilson","Austin"],1],
-["L043","In giapponese, la cortesia è",["normativa","intenzionale","strategica","interazionale"],0],
-["L043","Fra le massime di Leech rientra",["la massima di modo","la massima della simpatia","la massima di qualità","la massima di relazione"],1],
-["L043","\"Buongiorno, vorrei un caffè macchiato\". \"Vorrei\" è",["un atto perlocutorio","espressione della cortesia positiva","espressione della cortesia negativa","un verbo performativo"],2],
-["L044","Il livello dei suoni è chiamato",["seconda articolazione","linguaggio non articolato","terza articolazione","prima articolazione"],0],
-["L045","La grammatica valenziale usa un approccio",["semantico","sociolinguistico","morfologico","pragmatico"],0],
-["L048","Nella definizione della comunità linguistica, i principali criteri sono",["esterni oggettivi","interni soggettivi","nessuna delle risposte","entrambe le risposte"],3],
-["L048","Il repertorio include",["le parlate alloglotte","dialetti, lingue, varietà","solo le lingue e i dialetti","solo i dialetti e le lingue"],1],
-["L048","A chi dobbiamo la prima descrizione scientifica dell'Italia dialettale?",["a Cardona","a Berruto","ad Ascoli","a Serianni"],2],
+["002","Per i generativisti",["la forma dipende dalla funzione","la forma è indipendente dalla funzione","nessuna di queste risposte","la funzione dipende dalla forma"],1],
+["002","Per i funzionalisti, il linguaggio",["dipende dal lessico usato","dipende dalla struttura profonda","è forgiato in relazione allo scopo","serve a esprimere il pensiero"],2],
+["003","La linguistica",["si colloca a metà strada fra le scienze molli e le scienze dure","è una scienza dura","nessuna di queste risposte","è una scienza molle"],0],
+["003","I segni sono",["motivati analogicamente e intenzionali","non motivati, arbitrari e intenzionali","motivati naturalmente e intenzionali","motivati naturalmente e non intenzionali"],2],
+["003","Gli indici sono",["motivati naturalmente e non intenzionali","motivati naturalmente e intenzionali","non motivati, arbitrari e intenzionali","motivati analogicamente e intenzionali"],0],
+["003","I simboli sono",["non motivati, arbitrari e intenzionali","motivati analogicamente e intenzionali","motivati naturalmente e non intenzionali","motivati naturalmente e intenzionali"],0],
+["003","Le icone sono",["motivati naturalmente e non intenzionali","motivate analogicamente e intenzionali","motivati analogicamente e non intenzionali","motivati naturalmente e intenzionali"],1],
+["003","Eccezioni all'arbitrarietà",["congiunzioni e preposizioni","congiunzioni ed esclamazioni","esclamazioni e congiunzioni","onomatopee ed esclamazioni"],3],
+["003","Chi ha introdotto la distinzione langue/parole?",["Labov","Chomsky","Saussure","Grice"],2],
+["003","Peirce ha definito il segno linguistico",["come una diade: referente, significante","come una diade: referente, significato","come una diade: significante, significato","come una triade: referente, significante, significato"],3],
+["003","La linguistica",["è descrittiva","è narrativa","è normativa","è prescrittiva"],0],
+["004","Il linguaggio verbale è",["posizionale ma non articolato","articolato e posizionale","né articolato né posizionale","articolato ma non posizionale"],1],
+["004","Il concetto di competenza linguistica è stato introdotto da",["Dell Hymes","Grice","Chomsky","Austin"],2],
+["004","Chi ha formulato la distinzione sistema/uso?",["Chomsky","Labov","Saussure","Hjelmslev"],3],
+["004","Quale coppia NON rientra fra le dicotomie saussuriane?",["sintagmatico / paradigmatico","langue / parole","competence / performance","significante / significato"],2],
+["004","L'unità minima della fonetica è il",["sintagma","fono","suono","fonema"],1],
+["005","La capacità di produrre suoni linguistici è detta",["Fonetica","Articolazione","Fonologia","Fonazione"],3],
+["005","La sintassi si interessa",["al rapporto fra segni e referenti","al rapporto fra segni e chi li usa","al rapporto fra i segni","nessuna delle risposte"],2],
+["006","Acqua/idrico è un esempio di",["suppletivismo","omonimia","allomorfia","metonimia"],0],
+["006","Il procedimento che permette di identificare i morfemi si chiama",["morfosintassi","segmentazione","morfematica","morfologia"],1],
+["006","Dal punto di vista funzionale, quante classi di morfemi esistono?",["tre","soltanto una","due","quattro"],2],
+["006","Gli allomorfi sono",["morfemi dal significato diverso","morfemi grammaticali","morfemi lessicali","due o più morfi con lo stesso significato"],3],
+["006","La più piccola unità linguistica dotata di significato si chiama",["fono","lessema","morfema","fonema"],2],
+["006","I morfemi grammaticali",["costituiscono una classe chiusa","sono costituiti da un solo morfo","costituiscono una classe aperta","esprimono un significato lessicale"],0],
+["006","I morfi liberi",["non possono costituire parola","sono allomorfi","possono ricorrere da soli","sono in variazione libera"],2],
+["006","Una parola si scompone in",["morfomi","morfi","morfemi","lessemi"],1],
+["006","I morfi che si inseriscono nella radice si chiamano",["affissi","prefissi","infissi","suffissi"],2],
+["007","La prova di commutazione si usa in",["tutt'e tre","semantica","fonologia","morfologia"],3],
+["007","La struttura sintattica di un enunciato è",["gerarchica","circolare","subordinata","lineare"],0],
+["007","La minima combinazione di parole che funziona come un'unità sintattica è",["il morfema","la frase","il sintagma","il verbo"],2],
+["008","Quale dei seguenti verbi è monovalente?",["regalare","dormire","vendere","grandinare"],1],
+["008","Quale dei seguenti verbi è trivalente?",["correre","regalare","nevicare","tradurre"],1],
+["008","La pragmatica di tipo anglo-americano",["è di stampo cognitivo-filosofico","considera l'intenzione come un costrutto post-factum","mette in dubbio la centralità dell'intenzione","è di stampo socioculturale-interazionale"],0],
+["008","Nella grammatica tradizionale, i complementi sono definiti su base",["semantica","sintattica","analogica","morfologica"],0],
+["008","La grammatica valenziale è stata elaborata da",["Tesnière","Hjelmslev","Saussure","Chomsky"],0],
+["009","La componente della lingua più esposta all'influenza di altre lingue è",["il lessico","la morfologia","il sistema fonetico","la sintassi"],0],
+["009","Volante e macchina si trovano in rapporto di",["sinonimia","iponimia","omonimia","meronimia"],3],
+["009","L'estensione di una parola riguarda",["la capacità di essere impiegata in situazioni diverse","situazioni di omonimia","l'insieme di tratti semantici connessi","tutti i membri a cui mi posso riferire"],3],
+["009","Il significato convenzionale è oggetto di studio della",["semantica","sociolinguistica","morfosintassi","pragmatica"],0],
+["009","Le reti di parole sono parole che intrattengono fra di loro relazioni",["sintattiche","gerarchiche","sintagmatiche","paradigmatiche"],3],
+["009","L'unità minima della semantica è il",["seme","lemma","lessema","morfo"],2],
+["010","Nella sua teoria dei segni, Morris paragona",["semantica, sintassi, pragmatica","semantica, lessico, pragmatica","morfologia, sintassi, pragmatica","fonetica, morfologia, sintassi"],0],
+["010","La pragmatica si occupa della relazione fra i segni e",["il discorso","il testo","la conversazione","chi li usa"],3],
+["010","La pragmatica si occupa",["del rapporto fra lingua e contesto","della competenza comunicativa dei parlanti","del rapporto fra utenti","del rapporto fra lingua e società"],0],
+["010","La pragmatica eredita il modello di studio",["della sociolinguistica","della retorica classica","dell'analisi conversazionale","dello strutturalismo"],1],
+["010","Chi definì per primo la pragmatica?",["Grice","Morris","Chomsky","Austin"],1],
+["011","La pragmatica linguistica è stata fondata e sviluppata soprattutto da",["filosofi","sociologi","psicologi","sociolinguisti"],0],
+["011","Nella tradizione continentale, la pragmatica",["fa parte del nucleo della teoria linguistica","non fa parte del nucleo della teoria linguistica","è collegata alla sintassi","non è collegata a ciascuno dei livelli di analisi"],1],
+["011","Il manuale di pragmatica di S. Levinson è del",["1983","1975","1963","1950"],0],
+["011","Austin è legato alla scuola di",["Oxford","Praga","Harvard","Londra"],0],
+["011","Secondo quale tradizione, la pragmatica NON fa parte del nucleo della teoria linguistica?",["secondo la scuola americana","secondo la scuola di Oxford","secondo la scuola continentale europea","secondo la scuola sovietica"],2],
+["011","Le variabili sociali sono essenziali per",["la sociolinguistica","la pragmatica","nessuna delle risposte","la sociolinguistica e la pragmatica"],3],
+["012","In Italia la sociolinguistica si è affermata grazie a",["De Mauro","Folena","Berruto","Cardona"],3],
+["012","Il fondatore della sociolinguistica è stato",["Austin","Chomsky","Grice","Labov"],3],
+["012","La sociolinguistica si afferma",["negli anni 60","negli anni 30","negli anni 80","negli anni 40"],0],
+["012","La sociolinguistica nasce",["in Italia","a Oxford","negli Stati Uniti","a Cambridge"],2],
+["012","La sociolinguistica si afferma",["negli anni 60","negli anni 70","negli anni 30","negli anni 80"],0],
+["013","L'espressione \"competenza comunicativa\" fu coniata da",["Morris","Dell Hymes","Grice","Chomsky"],1],
+["013","Il significato scaturisce",["solo dalle parole","solo dall'uso delle parole negli enunciati","non solo dalle parole, ma anche dal loro uso negli enunciati","nessuna delle risposte"],2],
+["013","Il contesto pertinente per l'interpretazione e la produzione degli enunciati coincide con",["il contesto linguistico","tutt'e tre le risposte","la situazione comunicativa contingente","le conoscenze condivise"],1],
+["013","Come possiamo 'decifrare' (interpretare) gli atti linguistici?",["grazie al co-testo","grazie alle conoscenze condivise","grazie al contesto, al co-testo e alle conoscenze condivise","grazie al contesto"],2],
+["013","Per comprendere un testo, il contesto",["è importante soltanto per i testi scritti","non è importante","è essenziale","è importante soltanto per i testi orali"],2],
+["014","Per l'etnometodologia, la realtà sociale",["non è fondamentale","è un dato preesistente","è l'unica realtà che conta","non è un dato preesistente"],3],
+["014","Nel paradigma formale, la funzione primaria di una lingua è",["la comunicazione","l'agire linguistico","l'espressione del pensiero","la descrizione degli oggetti"],2],
+["014","Il termine 'etnometodologia' fu coniato da",["Garfinkel","Austin","Dell Hymes","Chomsky"],0],
+["014","L'etnometodologia è una corrente della",["pragmatica","scuola di Oxford","micro-sociologia","grammatica generativa"],2],
+["016","Qual è la cornice che si attiva in: \"Ieri sono andata a visitare la mostra di Frida Kahlo; per fortuna non c'era coda alla biglietteria ma i depliant erano finiti\"",["artista","tentativo","deissi","museo"],3],
+["016","Il concetto di \"frame\" è stato proposto da",["Morris","Grice","Goffman","Minsky"],3],
+["016","Un dialogo tipico fra cameriere e cliente è",["un evento performativo","una cornice","un campo indicale","un copione"],3],
+["017","Il primo a formulare una teoria degli atti linguistici fu",["Morris","Searle","Austin","Grice"],2],
+["018","\"Promettere\" è un verbo",["assertivo","constativo","imperativo","performativo"],3],
+["018","\"Valutare\" è un verbo",["verdettivo","commissivo","comportativo","esercitivo"],0],
+["018","La retorica tratta",["la locuzione e la perlocuzione","la locuzione e l'illocuzione","nessuna di queste risposte","l'illocuzione e la perlocuzione"],3],
+["018","La dimensione perlocutoria riguarda",["le intenzioni del parlante","il semplice atto del dire qualcosa","gli effetti del dire","nessuna di queste risposte"],2],
+["018","La dimensione illocutoria riguarda",["gli effetti del dire","il semplice atto del dire qualcosa","nessuna di queste risposte","le intenzioni del parlante"],3],
+["018","La dimensione locutoria corrisponde a",["nessuna di queste risposte","gli effetti del dire","l'interpretazione","le intenzioni del parlante"],0],
+["021","\"È bella ma intelligente\" è un esempio di",["implicatura conversazionale","presupposizione","implicatura convenzionale","paradosso"],2],
+["021","Il principio di cooperazione è cruciale per",["le implicature","la cortesia","le presupposizioni","tutt'e tre le risposte"],0],
+["021","Il principio di cooperazione è stato formulato da",["Austin","Searle","Chomsky","Grice"],3],
+["021","\"Sii pertinente\" corrisponde alla massima di",["quantità","modo","relazione","qualità"],2],
+["021","Violare le massime conversazionali di Grice è",["infrequente","frequente","anomalo","scorretto"],1],
+["021","Dalle massime scaturiscono delle inferenze, che Grice chiama",["implicature convenzionali","nessuna di queste risposte","implicature conversazionali","presupposizioni"],2],
+["021","L'ipercooperazione si può verificare",["nel caso della presupposizione","nel caso dell'implicatura convenzionale","nel caso dell'implicatura conversazionale","in tutt'e tre i casi"],2],
+["021","Il principio di cooperazione è importante per",["la dimensione perlocutoria","la dimensione locutoria","le presupposizioni","le implicature"],0],
+["022","L'implicatura conversazionale è",["determinata","cancellabile","convenzionale","staccabile"],1],
+["022","Sono cancellabili",["le implicature convenzionali","le anafore testuali","le presupposizioni","le implicature conversazionali"],3],
+["022","\"Potrei sbagliarmi, ma credo che sia lui il capo\" è un esempio di",["frame","script","hedging","flouting"],2],
+["022","La ritrattabilità è un concetto derivato",["dall'analisi conversazionale","dall'etnometodologia","da Austin","da Grice"],3],
+["022","La mitigazione",["è uno strumento di negoziazione conversazionale","è una delle massime di Grice","è un procedimento sintattico","rientra fra i dispositivi di cortesia"],0],
+["023","Il test per riconoscere una presupposizione è",["la negazione","una domanda correlata","l'anafora","l'implicatura conversazionale"],0],
+["023","Nel caso della presupposizione il senso implicito si trova",["nelle inferenze","nel co-testo","nel contesto extralinguistico","sul dizionario"],1],
+["023","Viene innescata da un elemento linguistico",["l'inferenza","l'intenzionalità operativa","l'implicatura conversazionale","la presupposizione"],3],
+["024","Il principio di rilevanza è stato formulato da",["Austin","Levinson","Grice","Sperber e Wilson"],3],
+["024","Il principio di pertinenza è un principio di tipo",["strutturalista","sintattico","cognitivo","generativo"],2],
+["024","Il principio di pertinenza di Sperber e Wilson",["smentisce l'approccio di Grice","approfondisce l'approccio di Grice in chiave sociolinguistica","approfondisce l'approccio di Grice in direzione cognitiva","è completamente indipendente dall'approccio di Grice"],2],
+["024","Il principio di pertinenza",["dipende dalla cultura del parlante","riflette una tendenza innata","dipende dalla sincerità degli interlocutori","si apprende in età prescolare"],1],
+["025","Il livello più alto di analisi della linguistica testuale è",["la frase","il testo","il paragrafo","il discorso"],1],
+["025","La linguistica testuale è nata per superare le inadeguatezze",["dello strutturalismo","della pragmatica linguistica","della linguistica frasale","della sociolinguistica"],2],
+["025","Il contesto è",["invariabile ma negoziabile","invariabile e non negoziabile","variabile e negoziabile","variabile e non negoziabile"],2],
+["025","Per produrre la coerenza di un testo, la coesione e la connessità",["sono sufficienti ma non necessarie","sono necessarie ma non sufficienti","non sono né sufficienti né necessarie","sono sufficienti e necessarie"],2],
+["025","Quale dei due è un oggetto dinamico?",["sia il testo che il discorso","né il testo né il discorso","il discorso","il testo"],0],
+["026","Quale di queste caratteristiche rientra fra i principi regolativi di un testo?",["l'accettabilità","la coesione","l'efficacia","l'intenzionalità"],2],
+["026","Sono principi costitutivi di un testo",["l'efficienza, l'efficacia e l'appropriatezza","la situazionalità, l'intertestualità e l'appropriatezza","la coesione, la coerenza e l'efficacia","l'intenzionalità, l'accettabilità, l'informatività"],3],
+["028","\"La nave affondò nella notte. Quel disastro fu uno dei più gravi della storia della navigazione\". \"Quel disastro\" è un",["elemento deittico","elemento anaforico","pronome dimostrativo","incapsulatore anaforico"],3],
+["029","\"Codesto\" è",["un avverbio dimostrativo","un pronome relativo","un aggettivo relativo","un deittico"],3],
+["029","La deissi riguarda il modo in cui le lingue codificano",["i tratti del contesto di enunciazione e dell'evento comunicativo","il co-testo linguistico","gli atti linguistici indiretti","l'anafora e la catafora"],0],
+["029","Un esempio di verbo deittico è",["non esistono verbi deittici","promettere","venire","correre"],2],
+["029","L'origo è",["una teoria pragmatica","il centro del campo indicale","l'origine della teoria di Bühler","un avverbio deittico"],1],
+["030","Quale di questi avverbi è deittico?",["nessuna delle risposte","sempre","spesso","ovunque"],0],
+["030","Per la deissi spaziale, l'origo coincide con",["la posizione occupata dall'ascoltatore","il mittente del messaggio","la posizione occupata dal parlante","nessuna di queste risposte"],2],
+["030","I pronomi \"io e tu\"",["non sono mai deittici","sono sempre deittici","sono a volte deittici","sono anaforici"],1],
+["030","I dimostrativi possono codificare",["tutt'e tre le risposte","la visibilità","la prossimità all'interlocutore","la distanza"],0],
+["030","\"Costassù\" è un",["relativo","deittico","anaforico","connettivo"],1],
+["030","Sono deittici",["soltanto gli aggettivi dimostrativi","soltanto gli avverbi dimostrativi","soltanto i pronomi dimostrativi","tutt'e tre le risposte"],3],
+["031","I dimostrativi sono spesso diacronicamente collegati",["all'articolo indeterminativo","alle congiunzioni avversative","all'articolo determinativo","al pronome interrogativo"],2],
+["031","Nell'italiano medievale, l'allocutivo cortese era",["voi","tu","Lei","la cortesia non veniva codificata linguisticamente"],0],
+["031","I pronomi \"lui e lei\"",["sono sempre deittici","sono a volte deittici","non sono mai anaforici","non sono mai deittici"],1],
+["031","\"Oggi il bar è aperto la mattina\". \"Oggi\" è un elemento",["cataforico","illocutorio","anaforico","deittico"],3],
+["031","L'allocuzione è",["la cortesia linguistica","lo scambio comunicativo tipico","nessuna delle risposte","il riferimento linguistico del parlante al suo interlocutore"],3],
+["031","\"Qui comincia l'avventura del signor Bonaventura\": \"Qui\" è un",["deittico personale","deittico spaziale","deittico testuale","deittico temporale"],2],
+["032","Gli aggettivi dimostrativi",["sono sempre anaforici","nessuna di queste risposte","possono essere sia deittici, sia anaforici","sono sempre deittici"],2],
+["032","I pronomi dimostrativi possono essere",["soltanto esoforici","sia deittici che anaforici","soltanto deittici","soltanto anaforici"],1],
+["032","\"Te lo dico per l'ultima volta: no!\". \"Lo\" è un",["elemento anaforico","elemento deittico","incapsulatore anaforico","elemento cataforico"],3],
+["032","Per riferirsi agli elementi testuali presenti nell'universo del discorso, si usa",["nessuna delle risposte","sia mezzi anaforici, sia mezzi deittici","solo mezzi anaforici","solo mezzi deittici"],1],
+["035","La diamesia riguarda",["la stratificazione sociale","le differenti situazioni comunicative","la provenienza geografica dei parlanti","il canale comunicativo"],3],
+["035","La diafasia riguarda",["la provenienza geografica dei parlanti","le differenti situazioni comunicative","il canale comunicativo","la stratificazione sociale"],1],
+["036","Quante lingue minoritarie riconosce il Consiglio d'Europa?",["24","114","84","44"],2],
+["036","La differenza fra lingua e dialetto è soprattutto di natura",["linguistica","fonetica","sociale","fonologica"],2],
+["037","Il repertorio linguistico della Sardegna è un caso di",["plurilinguismo","bilinguismo","dilalia","diglossia"],1],
+["037","La dilalia riguarda",["un cambiamento di registro","una distinzione funzionale molto rigida fra due sistemi linguistici","una distinzione funzionale poco rigida fra due sistemi linguistici","le differenti situazioni comunicative"],2],
+["037","Nel caso della diglossia",["una lingua è usata soltanto nel parlato formale, l'altra nel parlato informale","una delle lingue è legata a flussi migratori recenti","le lingue sono strutturalmente vicine","entrambe le lingue possono essere usate in tutte le situazioni"],0],
+["037","A Roma e in Toscana si può parlare di",["bidialettismo","diacrolettia","diglossia","dilalia"],0],
+["038","Il code-mixing riguarda",["il passaggio da una varietà all'altra nella lingua scritta","il passaggio da una varietà all'altra in tutte le situazioni","il passaggio da una varietà all'altra nel corso di due battute successive","il passaggio da una varietà all'altra nella stessa battuta"],3],
+["038","Il tag-switching fa riferimento",["all'uso non integrato di voci straniere","alla commutazione interfrasale","agli ibridismi","alla commutazione intrafrasale"],0],
+["038","Il code-switching è",["un cambiamento di canale","un cambiamento di varietà","un cambiamento di registro","un messaggio codificato"],1],
+["039","Per \"heritage language\" si intende",["la lingua degli emigrati","la lingua recuperata dagli immigrati di seconda generazione","una lingua estinta","la lingua degli immigrati"],1],
+["039","Sono sistemi semplificati",["le lingue miste","le lingue creole","le lingue minoritarie","i pidgin"],3],
+["040","La Dichiarazione universale sui diritti linguistici risale al",["1989","1996","1969","2019"],1],
+["040","In Italia, la linguistica femminista divenne importante grazie a",["Tullio De Mauro","Alma Sabatini","Francesco Sabatini","Luca Serianni"],1],
+["041","La cortesia linguistica",["l'atteggiamento psicologico nei confronti dell'interlocutore","riguarda gli allocutivi","riguarda soltanto la deissi sociale","riguarda anche mezzi non linguisticamente codificati"],3],
+["041","La logica della cortesia di R. Lakoff è ispirata",["non ha nessun precedente nella letteratura","al modello di Sperber e Wilson","alle massime di Grice","all'etnometodologia"],2],
+["042","Nel costruire la loro teoria, Brown e Levinson partono dai concetti sviluppati da",["Goffman","Austin","Lakoff","Grice"],0],
+["042","Una delle principali critiche alla teoria di Brown e Levinson riguarda",["la sua presunta universalità","la distinzione tra faccia positiva e faccia negativa","la validità del concetto di Face Threatening Acts","le super-massime (o super-strategie)"],0],
+["042","\"Può ripetere per favore?\" è un esempio di",["implicatura conversazionale","strategia di cortesia positiva","strategia di cortesia negativa","verbo direttivo"],2],
+["042","Per Goffman, la 'faccia' è",["l'espressione della cortesia linguistica","l'immagine pubblica che un partecipante desidera proiettare","l'aspetto superficiale dell'interazione","la logica evidente della conversazione"],1],
+["042","Il concetto di \"faccia\" è stato introdotto da",["Grice","Goffman","Sperber e Wilson","Austin"],1],
+["043","In giapponese, la cortesia è",["normativa","intenzionale","strategica","interazionale"],0],
+["043","Fra le massime di Leech rientra",["la massima di modo","la massima della simpatia","la massima di qualità","la massima di relazione"],1],
+["043","\"Buongiorno, vorrei un caffè macchiato\". \"Vorrei\" è",["un atto perlocutorio","espressione della cortesia positiva","espressione della cortesia negativa","un verbo performativo"],2],
+["044","Il livello dei suoni è chiamato",["seconda articolazione","linguaggio non articolato","terza articolazione","prima articolazione"],0],
+["045","La grammatica valenziale usa un approccio",["semantico","sociolinguistico","morfologico","pragmatico"],0],
+["048","Nella definizione della comunità linguistica, i principali criteri sono",["esterni oggettivi","interni soggettivi","nessuna delle risposte","entrambe le risposte"],3],
+["048","Il repertorio include",["le parlate alloglotte","dialetti, lingue, varietà","solo le lingue e i dialetti","solo i dialetti e le lingue"],1],
+["048","A chi dobbiamo la prima descrizione scientifica dell'Italia dialettale?",["a Cardona","a Berruto","ad Ascoli","a Serianni"],2],
 ["BONUS","Gabri ti ama:",["tantissimo","tantissimo","ancor di più","troppo di più"],3]
 ];
 
 let queue = DATA.map((d,i)=>i);
 let total = DATA.length;
-let answeredOk = 0;
+let correctCount = 0;
+let giro = 1;
 let current = null;
 let locked = false;
 
 const app = document.getElementById('app');
-const countEl = document.getElementById('count');
+const progressEl = document.getElementById('progress');
+
+function updateProgress(){
+  progressEl.innerHTML = correctCount + "/" + total + " corrette<br>giro " + giro;
+}
 
 function next(){
+  updateProgress();
   if(queue.length===0){ renderEnd(); return; }
   current = queue.shift();
   locked = false;
@@ -315,15 +342,15 @@ function next(){
 }
 
 function render(){
-  const [les,q,opts,correct] = DATA[current];
-  countEl.textContent = "restano " + queue.length;
+  const [les,q,opts] = DATA[current];
+  const posInGiro = (total - queue.length);
   const li = opts.map((o,i)=>
-    `<li class="opzione" data-i="${i}"><span class="box"></span><span>${o}</span></li>`
+    `<div class="opzione" data-i="${i}"><span class="box"></span><span>${o}</span></div>`
   ).join('');
   app.innerHTML = `
-    <div class="lezione">${les}</div>
+    <div class="meta">Lezione ${les} — domanda ${posInGiro} di ${total}</div>
     <p class="domanda">${q}</p>
-    <ul class="opzioni">${li}</ul>
+    <div class="opzioni">${li}</div>
     <div class="esito" id="esito"></div>
     <div class="azioni"><button class="avanti" id="avanti" style="display:none">Avanti</button></div>
   `;
@@ -335,7 +362,7 @@ function render(){
 function onPick(i){
   if(locked) return;
   locked = true;
-  const [,,opts,correct] = DATA[current];
+  const [,,,correct] = DATA[current];
   const els = app.querySelectorAll('.opzione');
   els.forEach(e=>e.classList.add('locked'));
   const esito = document.getElementById('esito');
@@ -343,7 +370,7 @@ function onPick(i){
     els[i].classList.add('corretta');
     esito.textContent = "corretto";
     esito.className = "esito right";
-    answeredOk++;
+    correctCount++;
   } else {
     els[i].classList.add('sbagliata');
     els[correct].classList.add('corretta');
@@ -351,12 +378,12 @@ function onPick(i){
     esito.className = "esito wrong";
     queue.push(current);
   }
+  updateProgress();
   document.getElementById('avanti').style.display = 'inline-block';
   document.getElementById('avanti').addEventListener('click', next);
 }
 
 function renderEnd(){
-  countEl.textContent = "";
   app.innerHTML = `
     <div class="fine">
       <div class="num">${total}/${total}</div>
@@ -366,7 +393,8 @@ function renderEnd(){
   `;
   document.getElementById('reset').addEventListener('click', ()=>{
     queue = DATA.map((d,i)=>i);
-    answeredOk = 0;
+    correctCount = 0;
+    giro = 1;
     next();
   });
 }
